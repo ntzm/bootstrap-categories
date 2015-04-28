@@ -78,6 +78,8 @@
             columnClass: 'col-md-4',
             addButtonClass: 'btn btn-success',
             addButtonHtml: '+',
+            addInputClass: 'form-control',
+            addInputPlaceholder: 'Category name',
             addable: false,
             maxLevels: 3,
 
@@ -122,7 +124,7 @@
 
             if ($(this).children('input').length === 0) {
                 // Create a new input for the new category name
-                $(this).prepend('<input type="text" class="form-control">');
+                $(this).prepend('<input type="text" placeholder="'+ settings.addInputPlaceholder +'" class="'+ settings.addInputClass +'">');
 
                 // Focus on the new input
                 $(this).children('input').focus();

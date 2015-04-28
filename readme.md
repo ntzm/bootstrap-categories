@@ -45,6 +45,8 @@ Option | Type | Description | Default
 `columnClass` | String | Class given to generated columns | `'col-md-4'`
 `addButtonClass` | String | Class given to the add button | `'btn btn-success'`
 `addButtonHtml` | String | HTML injected into the add button | `'+'`
+`addInputClass` | String | Class given to the add input | `'form-control'`
+`addInputPlaceholder` | String | Placeholder to be given to the add input | `'Category name'`
 `addable` | Bool | Should the user be allowed to add new categories? | `false`
 `maxLevels` | Number | The maximum number of levels allowed | `3`
 
