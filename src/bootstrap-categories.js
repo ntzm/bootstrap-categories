@@ -19,7 +19,7 @@
          * @return {Number}
          */
         var getIndexFromId = function(id) {
-            for (var i = 0; i < data.length; i++) {
+            for (var i = data.length - 1; i >= 0; --i) {
                 if (data[i].id == id) {
                     return i;
                 }
@@ -107,8 +107,7 @@
 
             // Find out if the category has any children
             var hasChildren = false;
-            var length = data.length;
-            for (var i = 0; i < length; i++) {
+            for (var i = data.length - 1; i >= 0; --i) {
                 if (data[i].parent == categoryId) {
                     hasChildren = true;
                     break;
@@ -137,8 +136,7 @@
                 var $select = $(this).parent().siblings('ul');
 
                 // Give the category an ID based on the maximum ID + 1
-                var length = data.length;
-                for (var i = 0; i < length; i++) {
+                for (var i = data.length - 1; i >= 0; --i) {
                     if (data[i].id >= category.id) {
                         category.id = data[i].id + 1;
                     }
