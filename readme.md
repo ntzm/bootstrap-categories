@@ -48,6 +48,7 @@ Option | Type | Description | Default
 `addInputClass` | String | Class given to the add input | `'form-control'`
 `addInputPlaceholder` | String | Placeholder to be given to the add input | `'Category name'`
 `addable` | Bool | Should the user be allowed to add new categories? | `false`
+`removable` | Bool | Should the user be allowed to remove categories? | `false`
 `maxLevels` | Number | The maximum number of levels allowed | `3`
 
 ### Events
@@ -63,6 +64,22 @@ Called when a new category is added.
 ```javascript
 var options = {
 	onCategoryAdd: function(object, index) {
+		// Do something
+	}
+};
+```
+
+#### `onCategoryRemove`
+
+Called when category is removed.
+
+`object` refers to the removed caetgory object.
+
+`index` refers to the index where the category object was stored in the `data` array.
+
+```javascript
+var options = {
+	onCategoryRemove: function(object, index) {
 		// Do something
 	}
 };

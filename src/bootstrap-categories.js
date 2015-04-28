@@ -27,6 +27,23 @@
         };
 
         /**
+         * Generate a jQuery object for a category
+         * 
+         * @param  {Object} category
+         * 
+         * @return {Object}          jQuery object
+         */
+        var generateCategory = function(category) {
+            var $listItem = $('<li class="list-group-item clearfix" data-id="'+ category.id +'">'+ category.name +'</li>');
+
+            if (settings.removable) {
+                $listItem.append('<button data-role="remove" class="btn btn-sm btn-danger pull-right">X</button>');
+            }
+
+            return $listItem;
+        };
+
+        /**
          * Create a select element and populate it with options from the given array
          *
          * @param  {Number} parent
@@ -56,7 +73,7 @@
                 if (parent === null && !category.hasOwnProperty('parent') || category.parent == parent) {
                     $selectContainer
                         .children('ul')
-                        .append('<li class="list-group-item" data-id="'+ category.id +'">'+ category.name +'</li>');
+                        .append(generateCategory(category));
                 }
             }
 
@@ -74,10 +91,11 @@
             addButtonHtml: '+',
             addInputClass: 'form-control',
             addInputPlaceholder: 'Category name',
-            removeable: false,
+            removable: false,
             maxLevels: 3,
 
             onCategoryAdd: function() {},
+            onCategoryRemove: function() {},
             onSelectChange: function() {}
         }, options);
 
@@ -149,7 +167,7 @@
                         category.parent = parent;
                     }
 
-                    $select.append('<li class="list-group-item" data-id="'+ category.id +'">'+ category.name +'</li>');
+                    $select.append(generateCategory(category));
 
                     // Add the newly created category to the array
                     data.push(category);
@@ -163,6 +181,26 @@
                     settings.onCategoryAdd(category, data.length - 1);
                 }
             }
+        });
+
+        $root.on('click', 'button[data-role=remove]', function(e) {
+            // Prevent the parent from being clicked
+            e.stopPropagation();
+
+            var categoryId = $(this).parent().data('id');
+            var categoryIndex = getIndexFromId(categoryId);
+            var category = data[categoryIndex];
+
+            // Removed subsequent columns
+            $(this).closest('.'+ settings.columnClass).nextAll().remove();
+            
+            // Remove element from DOM
+            $(this).parent().remove();
+
+            // Remove element from array
+            data.splice(categoryIndex, 1);
+
+            settings.onCategoryRemove(category, categoryIndex);
         });
 
         return $root;
