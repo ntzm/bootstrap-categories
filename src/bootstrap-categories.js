@@ -36,7 +36,7 @@
         var createSelect = function(parent) {
             var $selectContainer = $('<div class="'+ settings.columnClass +'">');
 
-            if (settings.addable) {
+            if (settings.addable && $root.find('ul').length < settings.maxLevels) {
                 // Append the 'add category' button
                 $selectContainer.append(
                     '<div class="form-group">'+
@@ -77,6 +77,7 @@
             addButtonClass: 'btn btn-success',
             addButtonHtml: '+',
             editable: false,
+            maxLevels: 3,
 
             onCategoryAdd: function() {},
             onSelectChange: function() {}
@@ -105,18 +106,7 @@
             // Remove all subsequent select elements after the changed select
             $(this).parent().parent().nextAll().remove();
 
-            // Find out if the category has any children
-            var hasChildren = false;
-            for (var i = data.length - 1; i >= 0; --i) {
-                if (data[i].parent == categoryId) {
-                    hasChildren = true;
-                    break;
-                }
-            }
-
-            if (hasChildren) {
-                createSelect(categoryId);
-            }
+            createSelect(categoryId);
 
             settings.onSelectChange(data[categoryIndex], categoryIndex);
         });

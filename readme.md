@@ -46,6 +46,7 @@ Option | Type | Description | Default
 `addButtonClass` | String | Class given to the add button | `'btn btn-success'`
 `addButtonHtml` | String | HTML injected into the add button | `'+'`
 `addable` | Bool | Should the user be allowed to add new categories? | `false`
+`maxLevels` | Number | The maximum number of levels allowed | `3`
 
 ### Events
 
