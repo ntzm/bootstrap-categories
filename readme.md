@@ -1,5 +1,7 @@
 # Bootstrap Categories
 
+[Demo](http://natzim.me/bootstrap-categories)
+
 ## Documentation
 
 ### Usage
