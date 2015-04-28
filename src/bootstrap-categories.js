@@ -131,23 +131,25 @@
 
             newCategory.name = prompt('New category name');
 
-            var parent = $(this).data('parent');
+            if (newCategory.name !== null && newCategory.name.trim() !== '') {
+                var parent = $(this).data('parent');
 
-            if (parent !== 'undefined') {
-                newCategory.parent = $(this).data('parent');
+                if (parent !== 'undefined') {
+                    newCategory.parent = $(this).data('parent');
+                }
+
+                var $select = $(this).parent().siblings('ul');
+
+                $select.append(
+                    '<li data-id="'+ newCategory.id +'">'+
+                        '<a href="#">'+ newCategory.name +'</a>'+
+                    '</li>'
+                );
+
+                data.push(newCategory);
+
+                settings.onCategoryAdd(newCategory, data.length - 1);
             }
-
-            var $select = $(this).parent().siblings('ul');
-
-            $select.append(
-                '<li data-id="'+ newCategory.id +'">'+
-                    '<a href="#">'+ newCategory.name +'</a>'+
-                '</li>'
-            );
-
-            data.push(newCategory);
-
-            settings.onCategoryAdd(newCategory, data.length - 1);
         });
 
         return $root;
