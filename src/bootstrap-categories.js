@@ -29,9 +29,9 @@
         /**
          * Create a select element and populate it with options from the given array
          *
-         * @param {Number} parent
+         * @param  {Number} parent
          *
-         * @return {Object} jQuery object
+         * @return {Object}        jQuery object
          */
         var createSelect = function(parent) {
             var $selectContainer = $('<div class="'+ settings.columnClass +'">');
