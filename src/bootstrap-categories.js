@@ -37,6 +37,7 @@
             var $selectContainer = $('<div class="'+ settings.columnClass +'">');
 
             if (settings.addable) {
+                // Append the 'add category' button
                 $selectContainer.append(
                     '<div class="form-group">'+
                         '<button data-parent="'+ parent +'" class="'+ settings.addButtonClass +'">'+ settings.addButtonHtml +'</button>'+
@@ -91,6 +92,7 @@
          * Events
          */
 
+        // When a category is selected
         $root.on('click', 'li', function() {
             // Toggle active
             $(this).siblings().removeClass('active');
@@ -101,6 +103,7 @@
             // Remove all subsequent select elements after the changed select
             $(this).parent().parent().nextAll().remove();
 
+            // Count the number of children the category has, using the parent property
             var childrenCount = $.grep(data, function(category) {
                 return category.parent == categoryId;
             }).length;
