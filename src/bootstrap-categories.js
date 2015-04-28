@@ -49,8 +49,9 @@
                 '<ul class="'+ settings.selectClass +'"></ul>'
             );
 
-            for (var i = 0; i < data.length; i++) {
-                category = data[i];
+            var length = data.length;
+            for (var i = 0; i < length; i++) {
+                var category = data[i];
 
                 if (parent === null && !category.hasOwnProperty('parent') || category.parent == parent) {
                     $selectContainer
@@ -99,58 +100,65 @@
             $(this).addClass('active');
 
             var categoryId = $(this).data('id');
+            var categoryIndex = getIndexFromId(categoryId);
 
             // Remove all subsequent select elements after the changed select
             $(this).parent().parent().nextAll().remove();
 
-            // Count the number of children the category has, using the parent property
-            var childrenCount = $.grep(data, function(category) {
-                return category.parent == categoryId;
-            }).length;
-
-            if (childrenCount > 0) {
-                createSelect(categoryId);
+            // Find out if the category has any children
+            var hasChildren = false;
+            var length = data.length;
+            for (var i = 0; i < length; i++) {
+                if (data[i].parent == categoryId) {
+                    hasChildren = true;
+                    break;
+                }
             }
 
-            var categoryIndex = getIndexFromId(categoryId);
+            if (hasChildren) {
+                createSelect(categoryId);
+            }
 
             settings.onSelectChange(data[categoryIndex], categoryIndex);
         });
 
         $root.on('click', '.btn-success', function() {
-            var newCategory = {}
+            // TODO: Use an input element rather than a prompt
+            var name = prompt('New category name');
 
-            newCategory.id = 0;
+            // Ensure the user has entered a new name, or has not cancelled
+            if (name !== null && name.trim() !== '') {
+                var category = {
+                    id: 0,
+                    name: name
+                };
 
-            // Set new category ID based on the maximum ID + 1
-            for (var i = 0; i < data.length; i++) {
-                var category = data[i];
-
-                if (category.id >= newCategory.id) {
-                    newCategory.id = category.id + 1;
-                }
-            }
-
-            newCategory.name = prompt('New category name');
-
-            if (newCategory.name !== null && newCategory.name.trim() !== '') {
                 var parent = $(this).data('parent');
-
-                if (parent !== 'undefined') {
-                    newCategory.parent = $(this).data('parent');
-                }
-
                 var $select = $(this).parent().siblings('ul');
 
+                // Give the category an ID based on the maximum ID + 1
+                var length = data.length;
+                for (var i = 0; i < length; i++) {
+                    if (data[i].id >= category.id) {
+                        category.id = data[i].id + 1;
+                    }
+                }
+
+                // Parent is only undefined if it is a root category (i.e. has no parent)
+                if (parent !== 'undefined') {
+                    category.parent = parent;
+                }
+
                 $select.append(
-                    '<li data-id="'+ newCategory.id +'">'+
-                        '<a href="#">'+ newCategory.name +'</a>'+
+                    '<li data-id="'+ category.id +'">'+
+                        '<a href="#">'+ category.name +'</a>'+
                     '</li>'
                 );
 
-                data.push(newCategory);
+                // Add the newly created category to the array
+                data.push(category);
 
-                settings.onCategoryAdd(newCategory, data.length - 1);
+                settings.onCategoryAdd(category, data.length - 1);
             }
         });
 
