@@ -39,9 +39,11 @@
             if (settings.addable && $root.find('ul').length < settings.maxLevels) {
                 // Append the 'add category' button
                 $selectContainer.append(
-                    '<div class="form-group">'+
-                        '<button data-parent="'+ parent +'" class="'+ settings.addButtonClass +'">'+ settings.addButtonHtml +'</button>'+
-                    '</div>'
+                    '<form data-parent="'+ parent +'">'+
+                        '<div class="form-group">'+
+                            '<button class="'+ settings.addButtonClass +'">'+ settings.addButtonHtml +'</button>'+
+                        '</div>'+
+                    '</form>'
                 );
             }
 
@@ -95,7 +97,10 @@
          */
 
         // When a category is selected
-        $root.on('click', 'li', function() {
+        $root.on('click', 'li', function(e) {
+            // Prevent the browser from adding a # to the end of the url
+            e.preventDefault();
+
             // Toggle active
             $(this).siblings().removeClass('active');
             $(this).addClass('active');
@@ -111,42 +116,60 @@
             settings.onSelectChange(data[categoryIndex], categoryIndex);
         });
 
-        $root.on('click', '.btn-success', function() {
-            // TODO: Use an input element rather than a prompt
-            var name = prompt('New category name');
+        $root.on('submit', 'form', function(e) {
+            // Prevent the form from submitting
+            e.preventDefault();
 
-            // Ensure the user has entered a new name, or has not cancelled
-            if (name !== null && name.trim() !== '') {
-                var category = {
-                    id: 0,
-                    name: name
-                };
+            if ($(this).children('input').length === 0) {
+                // Create a new input for the new category name
+                $(this).prepend('<input type="text" class="form-control">');
 
-                var parent = $(this).data('parent');
-                var $select = $(this).parent().siblings('ul');
+                // Focus on the new input
+                $(this).children('input').focus();
 
-                // Give the category an ID based on the maximum ID + 1
-                for (var i = data.length - 1; i >= 0; --i) {
-                    if (data[i].id >= category.id) {
-                        category.id = data[i].id + 1;
+                // Hide add button
+                $(this).find('button').css('display', 'none');
+            } else {
+                var name = $(this).find('input').val();
+
+                if (name !== null && name.trim() !== '') {
+                    var category = {
+                        id: 0,
+                        name: name
+                    };
+
+                    var parent = $(this).data('parent');
+                    var $select = $(this).siblings('ul');
+
+                    // Give the category an ID based on the maximum ID + 1
+                    for (var i = data.length - 1; i >= 0; --i) {
+                        if (data[i].id >= category.id) {
+                            category.id = data[i].id + 1;
+                        }
                     }
+
+                    // Parent is only undefined if it is a root category (i.e. has no parent)
+                    if (parent !== 'undefined') {
+                        category.parent = parent;
+                    }
+
+                    $select.append(
+                        '<li data-id="'+ category.id +'">'+
+                            '<a href="#">'+ category.name +'</a>'+
+                        '</li>'
+                    );
+
+                    // Add the newly created category to the array
+                    data.push(category);
+
+                    // Remove the category input
+                    $(this).children('input').remove();
+
+                    // Show the add button
+                    $(this).find('button').css('display', 'inline-block');
+
+                    settings.onCategoryAdd(category, data.length - 1);
                 }
-
-                // Parent is only undefined if it is a root category (i.e. has no parent)
-                if (parent !== 'undefined') {
-                    category.parent = parent;
-                }
-
-                $select.append(
-                    '<li data-id="'+ category.id +'">'+
-                        '<a href="#">'+ category.name +'</a>'+
-                    '</li>'
-                );
-
-                // Add the newly created category to the array
-                data.push(category);
-
-                settings.onCategoryAdd(category, data.length - 1);
             }
         });
 
