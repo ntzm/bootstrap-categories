@@ -6,7 +6,7 @@
  */
 
 (function($) {
-    $.fn.categorySelector = function(data, options) {
+    $.fn.categories = function(data, options) {
         /*
          * Functions
          */

@@ -1,11 +1,11 @@
-# Bootstrap Category Selector
+# Bootstrap Categories
 
 ## Documentation
 
 ### Usage
 
 ```javascript
-element.categorySelector(data, options);
+element.categories(data, options);
 ```
 
 Example
@@ -32,7 +32,7 @@ var options = {
 	selectClass: 'form-control'
 };
 
-$('#element').categorySelector(data, options);
+$('#element').categories(data, options);
 ```
 
 ### Options
