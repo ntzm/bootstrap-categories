@@ -51,18 +51,10 @@
             for (var i = 0; i < data.length; i++) {
                 category = data[i];
 
-                if (parent === null) {
-                    if (!category.hasOwnProperty('parent')) {
-                        $selectContainer
-                            .children('select')
-                            .append('<option data-id="'+ category.id +'">'+ category.name +'</option>');
-                    }
-                } else {
-                    if (category.parent == parent) {
-                        $selectContainer
-                            .children('select')
-                            .append('<option data-id="'+ category.id +'">'+ category.name +'</option>');
-                    }
+                if (parent === null && !category.hasOwnProperty('parent') || category.parent == parent) {
+                    $selectContainer
+                        .children('select')
+                        .append('<option data-id="'+ category.id +'">'+ category.name +'</option>');
                 }
             }
 
