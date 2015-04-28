@@ -78,7 +78,7 @@
             columnClass: 'col-md-4',
             addButtonClass: 'btn btn-success',
             addButtonHtml: '+',
-            editable: false,
+            addable: false,
             maxLevels: 3,
 
             onCategoryAdd: function() {},
