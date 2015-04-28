@@ -92,12 +92,11 @@
          */
 
         $root.on('click', 'li', function() {
-            //temp
+            // Toggle active
             $(this).siblings().removeClass('active');
             $(this).addClass('active');
 
-            var $selectedOption = $(this);
-            var categoryId = $selectedOption.data('id');
+            var categoryId = $(this).data('id');
 
             // Remove all subsequent select elements after the changed select
             $(this).parent().parent().nextAll().remove();
