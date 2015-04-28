@@ -41,7 +41,7 @@ $('#element').categories(data, options);
 
 Option | Type | Description | Default
 ------ | ---- | ----------- | -------
-`selectClass` | String | Class given to generated `<select>` elements | `'form-control'`
+`selectClass` | String | Class given to generated `<select>` elements | `'list-group'`
 `columnClass` | String | Class given to generated columns | `'col-md-4'`
 `addButtonClass` | String | Class given to the add button | `'btn btn-success'`
 `addButtonHtml` | String | HTML injected into the add button | `'+'`

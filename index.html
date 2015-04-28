@@ -15,7 +15,7 @@
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-        <script src="dist/bootstrap-categories.min.js"></script>
+        <script src="src/bootstrap-categories.js"></script>
         <script>
         var fakeData = [
             {
@@ -49,7 +49,8 @@
         ];
 
         var options = {
-            addable: true
+            addable: true,
+            removable: true
         };
 
         $('#demo').categories(fakeData, options);

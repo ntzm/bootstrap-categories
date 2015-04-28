@@ -47,9 +47,7 @@
                 );
             }
 
-            $selectContainer.append(
-                '<ul class="'+ settings.selectClass +'"></ul>'
-            );
+            $selectContainer.append('<ul class="'+ settings.selectClass +'"></ul>');
 
             var length = data.length;
             for (var i = 0; i < length; i++) {
@@ -58,11 +56,7 @@
                 if (parent === null && !category.hasOwnProperty('parent') || category.parent == parent) {
                     $selectContainer
                         .children('ul')
-                        .append(
-                            '<li data-id="'+ category.id +'">'+
-                                '<a href="#">'+ category.name +'</a>'+
-                            '</li>'
-                        );
+                        .append('<li class="list-group-item" data-id="'+ category.id +'">'+ category.name +'</li>');
                 }
             }
 
@@ -74,13 +68,13 @@
          */
 
         var settings = $.extend({
-            selectClass: 'nav nav-pills nav-stacked',
+            selectClass: 'list-group',
             columnClass: 'col-md-4',
             addButtonClass: 'btn btn-success',
             addButtonHtml: '+',
             addInputClass: 'form-control',
             addInputPlaceholder: 'Category name',
-            addable: false,
+            removeable: false,
             maxLevels: 3,
 
             onCategoryAdd: function() {},
@@ -155,11 +149,7 @@
                         category.parent = parent;
                     }
 
-                    $select.append(
-                        '<li data-id="'+ category.id +'">'+
-                            '<a href="#">'+ category.name +'</a>'+
-                        '</li>'
-                    );
+                    $select.append('<li class="list-group-item" data-id="'+ category.id +'">'+ category.name +'</li>');
 
                     // Add the newly created category to the array
                     data.push(category);
