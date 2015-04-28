@@ -45,7 +45,7 @@
             }
 
             $selectContainer.append(
-                '<select multiple class="'+ settings.selectClass +'"></select>'
+                '<ul class="'+ settings.selectClass +'"></ul>'
             );
 
             for (var i = 0; i < data.length; i++) {
@@ -53,8 +53,12 @@
 
                 if (parent === null && !category.hasOwnProperty('parent') || category.parent == parent) {
                     $selectContainer
-                        .children('select')
-                        .append('<option data-id="'+ category.id +'">'+ category.name +'</option>');
+                        .children('ul')
+                        .append(
+                            '<li data-id="'+ category.id +'">'+
+                                '<a href="#">'+ category.name +'</a>'+
+                            '</li>'
+                        );
                 }
             }
 
@@ -66,7 +70,7 @@
          */
 
         var settings = $.extend({
-            selectClass: 'form-control',
+            selectClass: 'nav nav-pills nav-stacked',
             columnClass: 'col-md-4',
             addButtonClass: 'btn btn-success',
             addButtonHtml: '+',
@@ -87,12 +91,16 @@
          * Events
          */
 
-        $root.on('change', 'select', function() {
-            var $selectedOption = $(this).children('option:selected');
+        $root.on('click', 'li', function() {
+            //temp
+            $(this).siblings().removeClass('active');
+            $(this).addClass('active');
+
+            var $selectedOption = $(this);
             var categoryId = $selectedOption.data('id');
 
             // Remove all subsequent select elements after the changed select
-            $(this).parent().nextAll().remove();
+            $(this).parent().parent().nextAll().remove();
 
             var childrenCount = $.grep(data, function(category) {
                 return category.parent == categoryId;
@@ -129,10 +137,12 @@
                 newCategory.parent = $(this).data('parent');
             }
 
-            var $select = $(this).parent().siblings('select');
+            var $select = $(this).parent().siblings('ul');
 
             $select.append(
-                '<option data-id="'+ newCategory.id +'">'+ newCategory.name +'</button>'
+                '<li data-id="'+ newCategory.id +'">'+
+                    '<a href="#">'+ newCategory.name +'</a>'+
+                '</li>'
             );
 
             data.push(newCategory);
