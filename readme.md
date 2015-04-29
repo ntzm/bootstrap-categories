@@ -53,7 +53,7 @@ $('#element').categories(data, options);
 | Option                | Type   | Description                                       | Default                   |
 | --------------------- | ------ | ------------------------------------------------- | ------------------------- |
 | `selectClass`         | String | Class given to generated `<ul>` elements          | `'list-group'`            |
-| `columnClass`         | String | Class given to generated columns                  | `'col-md-4'`              |
+| `columnClass`         | String | Class given to generated columns                  | `'col-sm-4'`              |
 | `activeClass`         | String | Class given to the active category                | `'active'`                |
 | `listItemClass`       | String | Class given to the list items                     | `'list-group-item'`       |
 | `addButtonClass`      | String | Class given to the add button                     | `'btn btn-success'`       |

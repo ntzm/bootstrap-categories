@@ -119,7 +119,7 @@
 
         var settings = $.extend({
             selectClass: 'list-group',
-            columnClass: 'col-md-4',
+            columnClass: 'col-sm-4',
             activeClass: 'active',
             listItemClass: 'list-group-item',
             addButtonClass: 'btn btn-success',
