@@ -47,12 +47,16 @@
         var generateCategory = function(category) {
             var $listItem = $(
                 '<a href="#" class="' + settings.listItemClass +
-                ' clearfix" data-id="' + category.id + '">' +
-                escapeHtml(category.name) + '</a>'
+                ' clearfix" data-id="' + category.id + '"><span>' +
+                escapeHtml(category.name) + '</span></a>'
             );
 
+            var $group = $(
+                '<div class="btn-group pull-right"></div>'
+            ).appendTo($listItem);
+
             if (settings.removable) {
-                $listItem.append(
+                $group.append(
                     '<button data-role="remove" class="' +
                     settings.removeButtonClass + '">' +
                     settings.removeButtonHtml + '</button>'
@@ -120,10 +124,11 @@
             listItemClass: 'list-group-item',
             addButtonClass: 'btn btn-success',
             addButtonHtml: '+',
-            removeButtonClass: 'btn btn-xs btn-danger pull-right',
+            removeButtonClass: 'btn btn-sm btn-danger',
             removeButtonHtml: 'X',
             addInputClass: 'form-control',
             addInputPlaceholder: 'Category name',
+            addable: false,
             removable: false,
             maxLevels: 3,
 
@@ -221,6 +226,11 @@
             }
         });
 
+        $root.on('click', 'a[data-id] button,input', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+        });
+
         $root.on('blur', 'input[data-role=add]', function() {
             if ($(this).val().trim() === '') {
                 $(this).siblings()
@@ -231,12 +241,8 @@
             }
         });
 
-        $root.on('click', 'button[data-role=remove]', function(e) {
-            // Prevent the parent from being clicked
-            e.stopPropagation();
-            e.preventDefault();
-
-            var categoryId = $(this).parent().data('id');
+        $root.on('click', 'button[data-role=remove]', function() {
+            var categoryId = $(this).parent().parent().data('id');
             var categoryIndex = getIndexFromId(categoryId);
             var category = data[categoryIndex];
 
@@ -245,7 +251,7 @@
                 $(this).closest('.' + settings.columnClass).nextAll().remove();
 
                 // Remove element from DOM
-                $(this).parent().remove();
+                $(this).parent().parent().remove();
 
                 // Remove element and children from array
                 data.splice(categoryIndex, 1);

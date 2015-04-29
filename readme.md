@@ -56,7 +56,7 @@ Option | Type | Description | Default
 `listItemClass` | String | Class given to the list items | `'list-group-item'`
 `addButtonClass` | String | Class given to the add button | `'btn btn-success'`
 `addButtonHtml` | String | HTML injected into the add button | `'+'`
-`removeButtonClass` | String | Class given to the remove button | `'btn btn-xs btn-danger pull-right'`
+`removeButtonClass` | String | Class given to the remove button | `'btn btn-xs btn-danger'`
 `removeButtonHtml` | String | HTML injected into the remove button | `'X'`
 `addInputClass` | String | Class given to the add input | `'form-control'`
 `addInputPlaceholder` | String | Placeholder to be given to the add input | `'Category name'`
