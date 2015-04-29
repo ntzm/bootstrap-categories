@@ -45,7 +45,7 @@
          * @return {Object}          jQuery object
          */
         var generateCategory = function(category) {
-            var $listItem = $('<li class="list-group-item clearfix" data-id="'+ category.id +'">'+ escapeHtml(category.name) +'</li>');
+            var $listItem = $('<li class="'+ settings.listItemClass +' clearfix" data-id="'+ category.id +'">'+ escapeHtml(category.name) +'</li>');
 
             if (settings.removable) {
                 $listItem.append('<button data-role="remove" class="'+ settings.removeButtonClass +'">'+ settings.removeButtonHtml +'</button>');
@@ -101,6 +101,7 @@
             selectClass: 'list-group',
             columnClass: 'col-md-4',
             activeClass: 'active',
+            listItemClass: 'list-group-item',
             addButtonClass: 'btn btn-success',
             addButtonHtml: '+',
             removeButtonClass: 'btn btn-xs btn-danger pull-right',
