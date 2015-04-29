@@ -98,9 +98,9 @@
             removable: false,
             maxLevels: 3,
 
-            onCategoryAdd: function() {},
-            onCategoryRemove: function() {},
-            onSelectChange: function() {}
+            onAdd: function() {},
+            onRemove: function() {},
+            onSelect: function() {}
         }, options);
 
         /*
@@ -131,7 +131,7 @@
 
             createSelect(categoryId);
 
-            settings.onSelectChange(data[categoryIndex], categoryIndex);
+            settings.onSelect(data[categoryIndex], categoryIndex);
         });
 
         $root.on('submit', 'form', function(e) {
@@ -182,7 +182,7 @@
                     // Show the add button
                     $(this).find('button[data-role=add]').css('display', 'inline-block');
 
-                    settings.onCategoryAdd(category, data.length - 1);
+                    settings.onAdd(category, data.length - 1);
                 }
             }
         });
@@ -204,7 +204,7 @@
             // Remove element from array
             data.splice(categoryIndex, 1);
 
-            settings.onCategoryRemove(category, categoryIndex);
+            settings.onRemove(category, categoryIndex);
         });
 
         return $root;

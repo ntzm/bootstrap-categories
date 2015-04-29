@@ -33,13 +33,13 @@ $('#demo-2').categories(data, {
     addable: true,
     removable: true,
 
-    onCategoryAdd: function(category) {
+    onAdd: function(category) {
         alert('You added ' + category.name);
     },
-    onCategoryRemove: function(category) {
+    onRemove: function(category) {
         alert('You removed ' + category.name);
     },
-    onSelectChange: function(category) {
+    onSelect: function(category) {
         alert('You selected ' + category.name);
     }
 });

@@ -55,7 +55,7 @@ Option | Type | Description | Default
 
 ### Events
 
-#### `onCategoryAdd`
+#### `onAdd`
 
 Called when a new category is added.
 
@@ -65,15 +65,15 @@ Called when a new category is added.
 
 ```javascript
 var options = {
-	onCategoryAdd: function(object, index) {
+	onAdd: function(object, index) {
 		// Do something
 	}
 };
 ```
 
-#### `onCategoryRemove`
+#### `onRemove`
 
-Called when category is removed.
+Called when a category is removed.
 
 `object` refers to the removed caetgory object.
 
@@ -81,15 +81,15 @@ Called when category is removed.
 
 ```javascript
 var options = {
-	onCategoryRemove: function(object, index) {
+	onRemove: function(object, index) {
 		// Do something
 	}
 };
 ```
 
-#### `onSelectChange`
+#### `onSelect`
 
-Fired when the selection changes.
+Fired when a category is selected.
 
 `object` refers to the selected category object.
 
@@ -97,7 +97,7 @@ Fired when the selection changes.
 
 ```javascript
 var options = {
-	onSelectChange: function(object, index) {
+	onSelect: function(object, index) {
 		// Do something
 	}
 };
