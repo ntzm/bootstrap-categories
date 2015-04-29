@@ -1,7 +1,7 @@
 # Bootstrap Categories
 
-A jQuery plugin for display and modifying categories and subcategories.
-It could be used to display any data with a parent-child relationship.
+A jQuery plugin for displaying and modifying categories and subcategories.
+It can be used to display any data with a parent-child relationship.
 
 [Demo](http://natzim.me/bootstrap-categories)
 
