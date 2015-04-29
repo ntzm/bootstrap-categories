@@ -101,7 +101,7 @@
                 for (var i = 0; i < length; i++) {
                     var category = data[i];
 
-                    if (parent === null && !category.hasOwnProperty('parent') ||
+                    if (parent === null && !parent in category ||
                         category.parent == parent) {
                         $selectContainer
                             .children('ul')
