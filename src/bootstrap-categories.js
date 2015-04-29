@@ -223,8 +223,6 @@
                 }
             }
 
-            console.log(data);
-
             settings.onRemove(category, categoryIndex);
         });
 
