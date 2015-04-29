@@ -45,7 +45,7 @@
          * @return {Object}          jQuery object
          */
         var generateCategory = function(category) {
-            var $listItem = $('<li class="'+ settings.listItemClass +' clearfix" data-id="'+ category.id +'">'+ escapeHtml(category.name) +'</li>');
+            var $listItem = $('<a href="#" class="'+ settings.listItemClass +' clearfix" data-id="'+ category.id +'">'+ escapeHtml(category.name) +'</a>');
 
             if (settings.removable) {
                 $listItem.append('<button data-role="remove" class="'+ settings.removeButtonClass +'">'+ settings.removeButtonHtml +'</button>');
@@ -128,7 +128,7 @@
          */
 
         // When a category is selected
-        $root.on('click', 'li', function(e) {
+        $root.on('click', 'a[data-id]', function(e) {
             // Prevent the browser from adding a # to the end of the url
             e.preventDefault();
 
@@ -203,6 +203,7 @@
         $root.on('click', 'button[data-role=remove]', function(e) {
             // Prevent the parent from being clicked
             e.stopPropagation();
+            e.preventDefault();
 
             var categoryId = $(this).parent().data('id');
             var categoryIndex = getIndexFromId(categoryId);
