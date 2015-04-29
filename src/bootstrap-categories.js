@@ -45,17 +45,26 @@
          * @return {Object}          jQuery object
          */
         var generateCategory = function(category) {
-            var $listItem = $('<a href="#" class="' + settings.listItemClass + ' clearfix" data-id="' + category.id + '">' + escapeHtml(category.name) + '</a>');
+            var $listItem = $(
+                '<a href="#" class="' + settings.listItemClass +
+                ' clearfix" data-id="' + category.id + '">' +
+                escapeHtml(category.name) + '</a>'
+            );
 
             if (settings.removable) {
-                $listItem.append('<button data-role="remove" class="' + settings.removeButtonClass + '">' + settings.removeButtonHtml + '</button>');
+                $listItem.append(
+                    '<button data-role="remove" class="' +
+                    settings.removeButtonClass + '">' +
+                    settings.removeButtonHtml + '</button>'
+                );
             }
 
             return $listItem;
         };
 
         /**
-         * Create a select element and populate it with options from the given array
+         * Create a select element and populate it with options from the given
+         * array
          *
          * @param  {Number} parent
          *
@@ -63,26 +72,33 @@
          */
         var createSelect = function(parent) {
             if ($root.find('ul').length < settings.maxLevels) {
-                var $selectContainer = $('<div class="' + settings.columnClass + '">');
+                var $selectContainer = $(
+                    '<div class="' + settings.columnClass + '">'
+                );
 
                 if (settings.addable) {
                     // Append the 'add category' button
                     $selectContainer.append(
                         '<form data-parent="' + parent + '">' +
                             '<div class="form-group">' +
-                                '<button data-role="add" class="' + settings.addButtonClass + '">' + settings.addButtonHtml + '</button>' +
+                                '<button data-role="add" class="' +
+                                settings.addButtonClass + '">' +
+                                settings.addButtonHtml + '</button>' +
                             '</div>' +
                         '</form>'
                     );
                 }
 
-                $selectContainer.append('<ul class="'+ settings.selectClass +'"></ul>');
+                $selectContainer.append(
+                    '<ul class="'+ settings.selectClass +'"></ul>'
+                );
 
                 var length = data.length;
                 for (var i = 0; i < length; i++) {
                     var category = data[i];
 
-                    if (parent === null && !category.hasOwnProperty('parent') || category.parent == parent) {
+                    if (parent === null && !category.hasOwnProperty('parent') ||
+                        category.parent == parent) {
                         $selectContainer
                             .children('ul')
                             .append(generateCategory(category));
@@ -153,7 +169,11 @@
 
             if ($(this).children('input').length === 0) {
                 // Create a new input for the new category name
-                $(this).prepend('<input data-role="add" type="text" placeholder="' + settings.addInputPlaceholder + '" class="' + settings.addInputClass + '">');
+                $(this).prepend(
+                    '<input data-role="add" type="text" placeholder="' +
+                    settings.addInputPlaceholder + '" class="' +
+                    settings.addInputClass + '">'
+                );
 
                 // Focus on the new input
                 $(this).children('input[data-role=add]').focus();
@@ -179,7 +199,7 @@
                         }
                     }
 
-                    // Parent is only undefined if it is a root category (i.e. has no parent)
+                    // Parent is only undefined if it is a root category
                     if (parent !== 'undefined') {
                         category.parent = parent;
                     }
@@ -188,7 +208,8 @@
                     $(this).children('input[data-role=add]').remove();
 
                     // Show the add button
-                    $(this).find('button[data-role=add]').css('display', 'inline-block');
+                    $(this).find('button[data-role=add]')
+                        .css('display', 'inline-block');
 
                     if (settings.onAdd(category) !== false) {
                         $select.append(generateCategory(category));
@@ -202,7 +223,10 @@
 
         $root.on('blur', 'input[data-role=add]', function() {
             if ($(this).val().trim() === '') {
-                $(this).siblings().children('button[data-role=add]').css('display', 'inline-block');
+                $(this).siblings()
+                    .children('button[data-role=add]')
+                    .css('display', 'inline-block');
+
                 $(this).remove();
             }
         });
