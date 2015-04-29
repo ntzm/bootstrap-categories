@@ -58,7 +58,7 @@
                 $selectContainer.append(
                     '<form data-parent="'+ parent +'">'+
                         '<div class="form-group">'+
-                            '<button class="'+ settings.addButtonClass +'">'+ settings.addButtonHtml +'</button>'+
+                            '<button data-role="add" class="'+ settings.addButtonClass +'">'+ settings.addButtonHtml +'</button>'+
                         '</div>'+
                     '</form>'
                 );
@@ -138,15 +138,15 @@
 
             if ($(this).children('input').length === 0) {
                 // Create a new input for the new category name
-                $(this).prepend('<input type="text" placeholder="'+ settings.addInputPlaceholder +'" class="'+ settings.addInputClass +'">');
+                $(this).prepend('<input data-role="add" type="text" placeholder="'+ settings.addInputPlaceholder +'" class="'+ settings.addInputClass +'">');
 
                 // Focus on the new input
-                $(this).children('input').focus();
+                $(this).children('input[data-role=add]').focus();
 
                 // Hide add button
-                $(this).find('button').css('display', 'none');
+                $(this).find('button[data-role=add]').css('display', 'none');
             } else {
-                var name = $(this).find('input').val();
+                var name = $(this).find('input[data-role=add]').val();
 
                 if (name !== null && name.trim() !== '') {
                     var category = {
@@ -175,10 +175,10 @@
                     data.push(category);
 
                     // Remove the category input
-                    $(this).children('input').remove();
+                    $(this).children('input[data-role=add]').remove();
 
                     // Show the add button
-                    $(this).find('button').css('display', 'inline-block');
+                    $(this).find('button[data-role=add]').css('display', 'inline-block');
 
                     settings.onCategoryAdd(category, data.length - 1);
                 }
