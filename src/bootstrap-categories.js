@@ -27,6 +27,17 @@
         };
 
         /**
+         * Escape HTML
+         *
+         * @param  {String} html
+         *
+         * @return {String}      Escaped string
+         */
+        var escapeHtml = function(html) {
+            return $('<div/>').text(html).html();
+        };
+
+        /**
          * Generate a jQuery object for a category
          *
          * @param  {Object} category
@@ -34,7 +45,7 @@
          * @return {Object}          jQuery object
          */
         var generateCategory = function(category) {
-            var $listItem = $('<li class="list-group-item clearfix" data-id="'+ category.id +'">'+ category.name +'</li>');
+            var $listItem = $('<li class="list-group-item clearfix" data-id="'+ category.id +'">'+ escapeHtml(category.name) +'</li>');
 
             if (settings.removable) {
                 $listItem.append('<button data-role="remove" class="'+ settings.removeButtonClass +'">'+ settings.removeButtonHtml +'</button>');
