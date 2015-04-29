@@ -1,5 +1,7 @@
 # Bootstrap Categories
 
+![Bootstrap Categories](screenshot.jpg)
+
 A jQuery plugin for displaying and modifying categories and subcategories.
 It can be used to display any data with a parent-child relationship.
 
