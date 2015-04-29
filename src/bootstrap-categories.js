@@ -100,6 +100,7 @@
         var settings = $.extend({
             selectClass: 'list-group',
             columnClass: 'col-md-4',
+            activeClass: 'active',
             addButtonClass: 'btn btn-success',
             addButtonHtml: '+',
             removeButtonClass: 'btn btn-xs btn-danger pull-right',
@@ -131,8 +132,8 @@
             e.preventDefault();
 
             // Toggle active
-            $(this).siblings().removeClass('active');
-            $(this).addClass('active');
+            $(this).siblings().removeClass(settings.activeClass);
+            $(this).addClass(settings.activeClass);
 
             var categoryId = $(this).data('id');
             var categoryIndex = getIndexFromId(categoryId);

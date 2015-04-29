@@ -43,6 +43,7 @@ Option | Type | Description | Default
 ------ | ---- | ----------- | -------
 `selectClass` | String | Class given to generated `<ul>` elements | `'list-group'`
 `columnClass` | String | Class given to generated columns | `'col-md-4'`
+`activeClass` | String | Class given to the active category | `'active'`
 `addButtonClass` | String | Class given to the add button | `'btn btn-success'`
 `addButtonHtml` | String | HTML injected into the add button | `'+'`
 `removeButtonClass` | String | Class given to the remove button | `'btn btn-xs btn-danger pull-right'`
