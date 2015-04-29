@@ -29,19 +29,34 @@ $('#demo-1').categories(data, {
             <h2 id="events">Events</h2>
             <div id="demo-2" class="well col-md-12"></div>
 <pre>
-$('#demo-2').categories(fakeData, {
+$('#demo-2').categories(data, {
     addable: true,
     removable: true,
 
-    onCategoryAdd: function(object) {
-        alert('You added ' + object.name);
+    onCategoryAdd: function(category) {
+        alert('You added ' + category.name);
     },
-    onCategoryRemove: function(object) {
-        alert('You removed ' + object.name);
+    onCategoryRemove: function(category) {
+        alert('You removed ' + category.name);
     },
-    onSelectChange: function(object) {
-        alert('You selected ' + object.name);
+    onSelectChange: function(category) {
+        alert('You selected ' + category.name);
     }
+});
+</pre>
+
+            <h2 id="custom-styling">Custom styling</h2>
+            <div id="demo-3" class="well col-md-12"></div>
+<pre>
+$('#demo-3').categories(data, {
+    addable: true,
+    removable: true,
+
+    addButtonClass: 'btn btn-primary',
+    addButtonHtml: 'Add',
+    removeButtonClass: 'btn btn-xs btn-warning pull-right',
+    removeButtonHtml: 'Remove',
+    addInputPlaceholder: 'New category'
 });
 </pre>
         </div>
@@ -49,7 +64,7 @@ $('#demo-2').categories(fakeData, {
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
         <script src="src/bootstrap-categories.js"></script>
         <script>
-        var fakeData = [
+        var data = [
             {
                 id: 1,
                 name: 'Category 1'
@@ -80,14 +95,14 @@ $('#demo-2').categories(fakeData, {
             }
         ];
 
-        $('#demo-0').categories(fakeData);
+        $('#demo-0').categories(data);
 
-        $('#demo-1').categories(fakeData, {
+        $('#demo-1').categories(data, {
             addable: true,
             removable: true
         });
 
-        $('#demo-2').categories(fakeData, {
+        $('#demo-2').categories(data, {
             addable: true,
             removable: true,
 
@@ -100,6 +115,17 @@ $('#demo-2').categories(fakeData, {
             onSelectChange: function(object, index) {
                 alert('You selected ' + object.name);
             }
+        });
+
+        $('#demo-3').categories(data, {
+            addable: true,
+            removable: true,
+
+            addButtonClass: 'btn btn-primary',
+            addButtonHtml: 'Add',
+            removeButtonClass: 'btn btn-xs btn-warning pull-right',
+            removeButtonHtml: 'Remove',
+            addInputPlaceholder: 'New category'
         });
         </script>
     </body>
