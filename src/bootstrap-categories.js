@@ -51,33 +51,35 @@
          * @return {Object}        jQuery object
          */
         var createSelect = function(parent) {
-            var $selectContainer = $('<div class="'+ settings.columnClass +'">');
+            if ($root.find('ul').length < settings.maxLevels) {
+                var $selectContainer = $('<div class="'+ settings.columnClass +'">');
 
-            if (settings.addable && $root.find('ul').length < settings.maxLevels) {
-                // Append the 'add category' button
-                $selectContainer.append(
-                    '<form data-parent="'+ parent +'">'+
-                        '<div class="form-group">'+
-                            '<button data-role="add" class="'+ settings.addButtonClass +'">'+ settings.addButtonHtml +'</button>'+
-                        '</div>'+
-                    '</form>'
-                );
-            }
-
-            $selectContainer.append('<ul class="'+ settings.selectClass +'"></ul>');
-
-            var length = data.length;
-            for (var i = 0; i < length; i++) {
-                var category = data[i];
-
-                if (parent === null && !category.hasOwnProperty('parent') || category.parent == parent) {
-                    $selectContainer
-                        .children('ul')
-                        .append(generateCategory(category));
+                if (settings.addable) {
+                    // Append the 'add category' button
+                    $selectContainer.append(
+                        '<form data-parent="'+ parent +'">'+
+                            '<div class="form-group">'+
+                                '<button data-role="add" class="'+ settings.addButtonClass +'">'+ settings.addButtonHtml +'</button>'+
+                            '</div>'+
+                        '</form>'
+                    );
                 }
-            }
 
-            return $root.append($selectContainer);
+                $selectContainer.append('<ul class="'+ settings.selectClass +'"></ul>');
+
+                var length = data.length;
+                for (var i = 0; i < length; i++) {
+                    var category = data[i];
+
+                    if (parent === null && !category.hasOwnProperty('parent') || category.parent == parent) {
+                        $selectContainer
+                            .children('ul')
+                            .append(generateCategory(category));
+                    }
+                }
+
+                return $root.append($selectContainer);
+            }
         };
 
         /*
