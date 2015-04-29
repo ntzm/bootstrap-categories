@@ -45,10 +45,10 @@
          * @return {Object}          jQuery object
          */
         var generateCategory = function(category) {
-            var $listItem = $('<a href="#" class="'+ settings.listItemClass +' clearfix" data-id="'+ category.id +'">'+ escapeHtml(category.name) +'</a>');
+            var $listItem = $('<a href="#" class="' + settings.listItemClass + ' clearfix" data-id="' + category.id + '">' + escapeHtml(category.name) + '</a>');
 
             if (settings.removable) {
-                $listItem.append('<button data-role="remove" class="'+ settings.removeButtonClass +'">'+ settings.removeButtonHtml +'</button>');
+                $listItem.append('<button data-role="remove" class="' + settings.removeButtonClass + '">' + settings.removeButtonHtml + '</button>');
             }
 
             return $listItem;
@@ -63,15 +63,15 @@
          */
         var createSelect = function(parent) {
             if ($root.find('ul').length < settings.maxLevels) {
-                var $selectContainer = $('<div class="'+ settings.columnClass +'">');
+                var $selectContainer = $('<div class="' + settings.columnClass + '">');
 
                 if (settings.addable) {
                     // Append the 'add category' button
                     $selectContainer.append(
-                        '<form data-parent="'+ parent +'">'+
-                            '<div class="form-group">'+
-                                '<button data-role="add" class="'+ settings.addButtonClass +'">'+ settings.addButtonHtml +'</button>'+
-                            '</div>'+
+                        '<form data-parent="' + parent + '">' +
+                            '<div class="form-group">' +
+                                '<button data-role="add" class="' + settings.addButtonClass + '">' + settings.addButtonHtml + '</button>' +
+                            '</div>' +
                         '</form>'
                     );
                 }
@@ -153,7 +153,7 @@
 
             if ($(this).children('input').length === 0) {
                 // Create a new input for the new category name
-                $(this).prepend('<input data-role="add" type="text" placeholder="'+ settings.addInputPlaceholder +'" class="'+ settings.addInputClass +'">');
+                $(this).prepend('<input data-role="add" type="text" placeholder="' + settings.addInputPlaceholder + '" class="' + settings.addInputClass + '">');
 
                 // Focus on the new input
                 $(this).children('input[data-role=add]').focus();
@@ -217,7 +217,7 @@
             var category = data[categoryIndex];
 
             // Removed subsequent columns
-            $(this).closest('.'+ settings.columnClass).nextAll().remove();
+            $(this).closest('.' + settings.columnClass).nextAll().remove();
 
             // Remove element from DOM
             $(this).parent().remove();
