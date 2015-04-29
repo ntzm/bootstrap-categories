@@ -213,8 +213,15 @@
             // Remove element from DOM
             $(this).parent().remove();
 
-            // Remove element from array
+            // Remove element and children from array
             data.splice(categoryIndex, 1);
+            for (var i = data.length - 1; i >= 0; --i) {
+                if (data[i].parent == categoryId) {
+                    data.splice(i, 1);
+                }
+            }
+
+            console.log(data);
 
             settings.onRemove(category, categoryIndex);
         });
