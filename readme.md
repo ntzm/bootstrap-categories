@@ -59,7 +59,7 @@ $('#element').categories(data, options);
 | `addButtonClass`      | String | Class given to the add button                     | `'btn btn-success'`       |
 | `addButtonHtml`       | String | HTML injected into the add button                 | `'+'`                     |
 | `removeButtonClass`   | String | Class given to the remove button                  | `'btn btn-sm btn-danger'` |
-| `removeButtonHtml`    | String | HTML injected into the remove button              | `'X'`                     |
+| `removeButtonHtml`    | String | HTML injected into the remove button              | `'&times;'`               |
 | `addInputClass`       | String | Class given to the add input                      | `'form-control'`          |
 | `addInputPlaceholder` | String | Placeholder to be given to the add input          | `'Category name'`         |
 | `addable`             | Bool   | Should the user be allowed to add new categories? | `false`                   |

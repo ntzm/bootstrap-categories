@@ -125,7 +125,7 @@
             addButtonClass: 'btn btn-success',
             addButtonHtml: '+',
             removeButtonClass: 'btn btn-sm btn-danger',
-            removeButtonHtml: 'X',
+            removeButtonHtml: '&times;',
             addInputClass: 'form-control',
             addInputPlaceholder: 'Category name',
             addable: false,
