@@ -11,7 +11,39 @@
         <div class="container">
             <h1>Bootstrap Categories Demo</h1>
 
-            <div id="demo" class="well col-md-12"></div>
+            <h2 id="basic">Basic</h2>
+            <div id="demo-0" class="well col-md-12"></div>
+<pre>
+$('#demo-0').categories(data);
+</pre>
+
+            <h2 id="addable-and-removable">Addable and removable</h2>
+            <div id="demo-1" class="well col-md-12"></div>
+<pre>
+$('#demo-1').categories(data, {
+    addable: true,
+    removable: true
+});
+</pre>
+
+            <h2 id="events">Events</h2>
+            <div id="demo-2" class="well col-md-12"></div>
+<pre>
+$('#demo-2').categories(fakeData, {
+    addable: true,
+    removable: true,
+
+    onCategoryAdd: function(object) {
+        alert('You added ' + object.name);
+    },
+    onCategoryRemove: function(object) {
+        alert('You removed ' + object.name);
+    },
+    onSelectChange: function(object) {
+        alert('You selected ' + object.name);
+    }
+});
+</pre>
         </div>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -48,12 +80,27 @@
             }
         ];
 
-        var options = {
+        $('#demo-0').categories(fakeData);
+
+        $('#demo-1').categories(fakeData, {
             addable: true,
             removable: true
-        };
+        });
 
-        $('#demo').categories(fakeData, options);
+        $('#demo-2').categories(fakeData, {
+            addable: true,
+            removable: true,
+
+            onCategoryAdd: function(object, index) {
+                alert('You added ' + object.name);
+            },
+            onCategoryRemove: function(object, index) {
+                alert('You removed ' + object.name);
+            },
+            onSelectChange: function(object, index) {
+                alert('You selected ' + object.name);
+            }
+        });
         </script>
     </body>
 </html>
