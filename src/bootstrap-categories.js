@@ -28,16 +28,16 @@
 
         /**
          * Generate a jQuery object for a category
-         * 
+         *
          * @param  {Object} category
-         * 
+         *
          * @return {Object}          jQuery object
          */
         var generateCategory = function(category) {
             var $listItem = $('<li class="list-group-item clearfix" data-id="'+ category.id +'">'+ category.name +'</li>');
 
             if (settings.removable) {
-                $listItem.append('<button data-role="remove" class="btn btn-sm btn-danger pull-right">X</button>');
+                $listItem.append('<button data-role="remove" class="'+ settings.removeButtonClass +'">'+ settings.removeButtonHtml +'</button>');
             }
 
             return $listItem;
@@ -89,6 +89,8 @@
             columnClass: 'col-md-4',
             addButtonClass: 'btn btn-success',
             addButtonHtml: '+',
+            removeButtonClass: 'btn btn-xs btn-danger pull-right',
+            removeButtonHtml: 'X',
             addInputClass: 'form-control',
             addInputPlaceholder: 'Category name',
             removable: false,
@@ -193,7 +195,7 @@
 
             // Removed subsequent columns
             $(this).closest('.'+ settings.columnClass).nextAll().remove();
-            
+
             // Remove element from DOM
             $(this).parent().remove();
 
