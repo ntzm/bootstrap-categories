@@ -70,15 +70,15 @@ Events can be useful if the categories are being stored persistently, so you cou
 
 #### `onAdd`
 
-Called when a new category is added.
+Called when a new category is about to be added.
 
-`object` refers to the newly created category object.
+If you do not want the category to be added, make the function return `false`.
 
-`index` refers to the index of the newly created category object in the `data` array.
+`object` refers to the category object that is about to be added.
 
 ```javascript
 var options = {
-	onAdd: function(object, index) {
+	onAdd: function(category) {
 		// Do something
 	}
 };
@@ -86,15 +86,15 @@ var options = {
 
 #### `onRemove`
 
-Called when a category is removed.
+Called when a category is about to be removed.
 
-`object` refers to the removed caetgory object.
+If you do not want the category to be removed, make the function return `false`.
 
-`index` refers to the index where the category object was stored in the `data` array.
+`object` refers to the category object that is about to be removed.
 
 ```javascript
 var options = {
-	onRemove: function(object, index) {
+	onRemove: function(category) {
 		// Do something
 	}
 };
@@ -106,11 +106,9 @@ Fired when a category is selected.
 
 `object` refers to the selected category object.
 
-`index` refers to the index of the category object in the `data` array.
-
 ```javascript
 var options = {
-	onSelect: function(object, index) {
+	onSelect: function(category) {
 		// Do something
 	}
 };

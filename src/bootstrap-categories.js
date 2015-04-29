@@ -144,7 +144,7 @@
 
             createSelect(categoryId);
 
-            settings.onSelect(data[categoryIndex], categoryIndex);
+            settings.onSelect(data[categoryIndex]);
         });
 
         $root.on('submit', 'form', function(e) {
@@ -184,18 +184,18 @@
                         category.parent = parent;
                     }
 
-                    $select.append(generateCategory(category));
-
-                    // Add the newly created category to the array
-                    data.push(category);
-
                     // Remove the category input
                     $(this).children('input[data-role=add]').remove();
 
                     // Show the add button
                     $(this).find('button[data-role=add]').css('display', 'inline-block');
 
-                    settings.onAdd(category, data.length - 1);
+                    if (settings.onAdd(category) !== false) {
+                        $select.append(generateCategory(category));
+
+                        // Add the newly created category to the array
+                        data.push(category);
+                    }
                 }
             }
         });
@@ -216,21 +216,21 @@
             var categoryIndex = getIndexFromId(categoryId);
             var category = data[categoryIndex];
 
-            // Removed subsequent columns
-            $(this).closest('.' + settings.columnClass).nextAll().remove();
+            if (settings.onRemove(category) !== false) {
+                // Removed subsequent columns
+                $(this).closest('.' + settings.columnClass).nextAll().remove();
 
-            // Remove element from DOM
-            $(this).parent().remove();
+                // Remove element from DOM
+                $(this).parent().remove();
 
-            // Remove element and children from array
-            data.splice(categoryIndex, 1);
-            for (var i = data.length - 1; i >= 0; --i) {
-                if (data[i].parent == categoryId) {
-                    data.splice(i, 1);
+                // Remove element and children from array
+                data.splice(categoryIndex, 1);
+                for (var i = data.length - 1; i >= 0; --i) {
+                    if (data[i].parent == categoryId) {
+                        data.splice(i, 1);
+                    }
                 }
             }
-
-            settings.onRemove(category, categoryIndex);
         });
 
         return $root;
