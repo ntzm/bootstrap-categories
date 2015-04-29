@@ -200,6 +200,13 @@
             }
         });
 
+        $root.on('blur', 'input[data-role=add]', function() {
+            if ($(this).val().trim() === '') {
+                $(this).siblings().children('button[data-role=add]').css('display', 'inline-block');
+                $(this).remove();
+            }
+        });
+
         $root.on('click', 'button[data-role=remove]', function(e) {
             // Prevent the parent from being clicked
             e.stopPropagation();
