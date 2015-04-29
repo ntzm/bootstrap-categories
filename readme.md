@@ -1,5 +1,8 @@
 # Bootstrap Categories
 
+A jQuery plugin for display and modifying categories and subcategories.
+It could be used to display any data with a parent-child relationship.
+
 [Demo](http://natzim.me/bootstrap-categories)
 
 ## Documentation
@@ -7,8 +10,14 @@
 ### Usage
 
 ```javascript
-element.categories(data, options);
+$element.categories(data, options);
 ```
+
+`data` should be an array of objects.
+
+Each object in `data` should have at least an `id` and `name` property.
+
+If the object is a child of another category, it should have a `parent` property which contains the `id` of the parent object.
 
 Example
 
@@ -56,6 +65,8 @@ Option | Type | Description | Default
 `maxLevels` | Number | The maximum number of levels allowed | `3`
 
 ### Events
+
+Events can be useful if the categories are being stored persistently, so you could send an AJAX request to the server when a new category is added to store it.
 
 #### `onAdd`
 
