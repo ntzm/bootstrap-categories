@@ -184,7 +184,7 @@
                 $(this).children('input[data-role=add]').focus();
 
                 // Hide add button
-                $(this).find('button[data-role=add]').css('display', 'none');
+                $(this).find('button[data-role=add]').hide();
             } else {
                 var name = $(this).find('input[data-role=add]').val();
 
@@ -213,8 +213,7 @@
                     $(this).children('input[data-role=add]').remove();
 
                     // Show the add button
-                    $(this).find('button[data-role=add]')
-                        .css('display', 'inline-block');
+                    $(this).find('button[data-role=add]').show();
 
                     if (settings.onAdd(category) !== false) {
                         $select.append(generateCategory(category));
@@ -233,9 +232,7 @@
 
         $root.on('blur', 'input[data-role=add]', function() {
             if ($(this).val().trim() === '') {
-                $(this).siblings()
-                    .children('button[data-role=add]')
-                    .css('display', 'inline-block');
+                $(this).siblings().children('button[data-role=add]').show();
 
                 $(this).remove();
             }
