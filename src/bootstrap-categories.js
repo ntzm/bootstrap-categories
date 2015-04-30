@@ -232,11 +232,8 @@
         });
 
         $root.on('blur', 'input[data-role=add]', function() {
-            if ($(this).val().trim() === '') {
-                $(this).siblings().children('button[data-role=add]').show();
-
-                $(this).remove();
-            }
+            $(this).siblings().children('button[data-role=add]').show();
+            $(this).remove();
         });
 
         $root.on('click', 'button[data-role=remove]', function() {
