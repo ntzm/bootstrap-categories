@@ -27,7 +27,7 @@ Example
 var data = [
 	{
 		id: 0,
-		name: 'Category',
+		name: 'Category'
 	},
 	{
 		id: 1,
