@@ -19,7 +19,8 @@
          * @return {Number}
          */
         var getIndexFromId = function(id) {
-            for (var i = data.length - 1; i >= 0; --i) {
+            var i = data.length;
+            while (i--) {
                 if (data[i].id == id) {
                     return i;
                 }
