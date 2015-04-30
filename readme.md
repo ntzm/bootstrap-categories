@@ -64,7 +64,7 @@ $('#element').categories(data, options);
 | `addInputPlaceholder` | String | Placeholder to be given to the add input       | `'Category name'`         |
 | `addable`             | Bool   | Should the user be able to add new categories? | `false`                   |
 | `removable`           | Bool   | Should the user be able to remove categories?  | `false`                   |
-| `maxLevels`           | Number | The maximum number of columns allowed          | `3`                       |
+| `maxColumns`          | Number | The maximum number of columns allowed          | `3`                       |
 
 ### Events
 

@@ -76,7 +76,7 @@
          * @return {Object}        jQuery object
          */
         var createSelect = function(parent) {
-            if ($root.find('ul').length < settings.maxLevels) {
+            if ($root.find('ul').length < settings.maxColumns) {
                 var $selectContainer = $(
                     '<div class="' + settings.columnClass + '">'
                 );
@@ -131,7 +131,7 @@
             addInputPlaceholder: 'Category name',
             addable: false,
             removable: false,
-            maxLevels: 3,
+            maxColumns: 3,
 
             onAdd: function() {},
             onRemove: function() {},
