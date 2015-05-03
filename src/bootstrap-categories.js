@@ -43,28 +43,24 @@
          *
          * @param  {Object} category
          *
-         * @return {Object}          jQuery object
+         * @return {String}          HTML string
          */
         var generateCategory = function(category) {
-            var $listItem = $(
-                '<a href="#" class="' + settings.listItemClass +
+            var listItem = '<a href="#" class="' + settings.listItemClass +
                 ' clearfix" data-id="' + category.id + '"><span>' +
-                escapeHtml(category.name) + '</span></a>'
-            );
+                escapeHtml(category.name) + '</span>';
 
-            var $group = $(
-                '<div class="btn-group pull-right"></div>'
-            ).appendTo($listItem);
-
+            // Generate button group
+            var group = '<div class="btn-group pull-right">';
+            // Add remove button
             if (settings.removable) {
-                $group.append(
-                    '<button data-role="remove" class="' +
+                group += '<button data-role="remove" class="' +
                     settings.removeButtonClass + '">' +
-                    settings.removeButtonHtml + '</button>'
-                );
+                    settings.removeButtonHtml + '</button>';
             }
+            group += '</div>';
 
-            return $listItem;
+            return listItem + group + '</a>';
         };
 
         /**
@@ -77,26 +73,22 @@
          */
         var createSelect = function(parent) {
             if ($root.find('ul').length < settings.maxColumns) {
-                var $selectContainer = $(
-                    '<div class="' + settings.columnClass + '">'
-                );
+                var selectContainer = '<div class="' + settings.columnClass +
+                    '">';
 
                 if (settings.addable) {
                     // Append the 'add category' button
-                    $selectContainer.append(
+                    selectContainer +=
                         '<form data-parent="' + parent + '">' +
                             '<div class="form-group">' +
                                 '<button data-role="add" class="' +
                                 settings.addButtonClass + '">' +
                                 settings.addButtonHtml + '</button>' +
                             '</div>' +
-                        '</form>'
-                    );
+                        '</form>';
                 }
 
-                $selectContainer.append(
-                    '<ul class="'+ settings.selectClass +'"></ul>'
-                );
+                selectContainer += '<ul class="'+ settings.selectClass +'">';
 
                 var length = data.length;
                 for (var i = 0; i < length; i++) {
@@ -104,13 +96,11 @@
 
                     if (parent === null && category.parent === void 0 ||
                         category.parent == parent) {
-                        $selectContainer
-                            .children('ul')
-                            .append(generateCategory(category));
+                        selectContainer += generateCategory(category);
                     }
                 }
 
-                return $root.append($selectContainer);
+                return $root.append(selectContainer + '</ul></div>');
             }
         };
 
@@ -162,7 +152,7 @@
             var categoryIndex = getIndexFromId(categoryId);
 
             // Remove all subsequent select elements after the changed select
-            $(this).parent().parent().nextAll().remove();
+            $(this).closest('.' + settings.columnClass).nextAll().remove();
 
             createSelect(categoryId);
 
@@ -173,7 +163,7 @@
             // Prevent the form from submitting
             e.preventDefault();
 
-            if ($(this).children('input').length === 0) {
+            if ($(this).find('input[data-role=add]').length === 0) {
                 // Create a new input for the new category name
                 $(this).prepend(
                     '<input data-role="add" type="text" placeholder="' +
@@ -182,21 +172,20 @@
                 );
 
                 // Focus on the new input
-                $(this).children('input[data-role=add]').focus();
+                $(this).find('input[data-role=add]').focus();
 
                 // Hide add button
                 $(this).find('button[data-role=add]').hide();
             } else {
                 var name = $(this).find('input[data-role=add]').val();
 
-                if (name !== null && name.trim() !== '') {
+                if (name !== null) {
                     var category = {
                         id: 0,
                         name: name
                     };
 
                     var parent = $(this).data('parent');
-                    var $select = $(this).siblings('ul');
 
                     // Give the category an ID based on the maximum ID + 1
                     for (var i = data.length - 1; i >= 0; --i) {
@@ -211,13 +200,14 @@
                     }
 
                     // Remove the category input
-                    $(this).children('input[data-role=add]').remove();
+                    $(this).find('input[data-role=add]').blur();
 
                     // Show the add button
                     $(this).find('button[data-role=add]').show();
 
                     if (settings.onAdd(category) !== false) {
-                        $select.append(generateCategory(category));
+                        $(this).siblings('ul')
+                            .append(generateCategory(category));
 
                         // Add the newly created category to the array
                         data.push(category);
@@ -226,18 +216,16 @@
             }
         });
 
-        $root.on('click', 'a[data-id] button,input', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
-        });
-
         $root.on('blur', 'input[data-role=add]', function() {
-            $(this).siblings().children('button[data-role=add]').show();
+            $(this).siblings().find('button[data-role=add]').show();
             $(this).remove();
         });
 
-        $root.on('click', 'button[data-role=remove]', function() {
-            var categoryId = $(this).parent().parent().data('id');
+        $root.on('click', 'button[data-role=remove]', function(e) {
+            e.stopPropagation();
+            e.preventDefault();
+
+            var categoryId = $(this).closest('[data-id]').data('id');
             var categoryIndex = getIndexFromId(categoryId);
             var category = data[categoryIndex];
 
@@ -246,7 +234,7 @@
                 $(this).closest('.' + settings.columnClass).nextAll().remove();
 
                 // Remove element from DOM
-                $(this).parent().parent().remove();
+                $(this).closest('[data-id]').remove();
 
                 // Remove category from array
                 data.splice(categoryIndex, 1);
